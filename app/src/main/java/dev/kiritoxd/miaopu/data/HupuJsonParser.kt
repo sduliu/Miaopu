@@ -79,9 +79,7 @@ object HupuJsonParser {
         )
     }
 
-    private companion object {
-        const val AUTO_THREAD_PAGE_SIZE = 20
-    }
+    private const val AUTO_THREAD_PAGE_SIZE = 20
 
     fun ratingDetail(json: String): RatingDetail {
         val data = JSONObject(json).requiredObject("data")

@@ -218,6 +218,7 @@ class MiaopuViewModel(
             is AppScreen.Ratings -> loadRatings(current.match.toModel())
             is AppScreen.Stage -> loadStageRating(current.match.toModel(), current.stage.toModel())
             is AppScreen.Comments -> loadComments(current.target.toModel())
+            AppScreen.AutoSection -> Unit
             is AppScreen.Web -> Unit
         }
     }
