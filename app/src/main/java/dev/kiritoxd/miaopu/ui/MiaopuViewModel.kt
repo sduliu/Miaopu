@@ -15,6 +15,8 @@ import dev.kiritoxd.miaopu.data.Esport
 import dev.kiritoxd.miaopu.data.EsportCatalog
 import dev.kiritoxd.miaopu.data.EsportSubscriptionStore
 import dev.kiritoxd.miaopu.data.HupuAdapter
+import dev.kiritoxd.miaopu.data.HupuAutoAdapter
+import dev.kiritoxd.miaopu.data.AutoThread
 import dev.kiritoxd.miaopu.data.HupuCookieSession
 import dev.kiritoxd.miaopu.data.HupuUrls
 import dev.kiritoxd.miaopu.data.GitHubRelease
@@ -62,6 +64,7 @@ class MiaopuViewModel(
     private val cookieSession = HupuCookieSession(application).also { it.restore() }
     private val adapter = HupuAdapter(cookieSession)
     private val releaseAdapter = GitHubReleaseAdapter()
+    val autoAdapter = HupuAutoAdapter()
     internal val matchDetail = MatchDetailController(viewModelScope, adapter::getStageRatingDetail)
     internal val commentReplies = CommentRepliesController(viewModelScope, adapter)
     internal val commentActions = CommentActionsController(viewModelScope, adapter::setCommentLight, adapter::publishReply) { message = it }
@@ -215,6 +218,7 @@ class MiaopuViewModel(
             is AppScreen.Ratings -> loadRatings(current.match.toModel())
             is AppScreen.Stage -> loadStageRating(current.match.toModel(), current.stage.toModel())
             is AppScreen.Comments -> loadComments(current.target.toModel())
+            AppScreen.AutoSection -> Unit
             is AppScreen.Web -> Unit
         }
     }
@@ -293,6 +297,20 @@ class MiaopuViewModel(
             ),
         )
         loadStageRating(match, stage)
+    }
+
+    fun openAutoSection() {
+        navigator?.push(AppScreen.AutoSection)
+    }
+
+    fun openAutoThread(thread: AutoThread) {
+        navigator?.push(
+            AppScreen.Web(
+                title = thread.title,
+                url = "https://bbs.hupu.com/${thread.tid}.html",
+                login = false,
+            ),
+        )
     }
 
     fun openComments(target: RatingTarget) {

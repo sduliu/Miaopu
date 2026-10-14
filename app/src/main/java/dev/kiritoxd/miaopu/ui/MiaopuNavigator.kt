@@ -53,5 +53,6 @@ internal val AppScreen.navigationContentKey: String
             append(stage.nodeId ?: stage.name)
         }
         is AppScreen.Comments -> "comments:${target.outBizType}:${target.outBizNo}"
+        AppScreen.AutoSection -> "auto-section"
         is AppScreen.Web -> "web:$login:$url"
     }

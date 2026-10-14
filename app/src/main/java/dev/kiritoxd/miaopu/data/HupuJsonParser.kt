@@ -44,6 +44,43 @@ object HupuJsonParser {
         )
     }
 
+    /**
+     * Parses a forum topic thread list from m.hupu.com, e.g.
+     * {"code":200,"msg":"success","data":{"topicThreads":[...],"cursor"/"nextCursor":"...","count":N}}.
+     * All fields are read defensively with opt* accessors; entries without a usable tid are skipped.
+     */
+    fun autoThreads(json: String): AutoThreadPage {
+        val data = JSONObject(json).optJSONObject("data") ?: JSONObject()
+        val threadsJson = data.optJSONArray("topicThreads") ?: JSONArray()
+        val threads = buildList {
+            for (index in 0 until threadsJson.length()) {
+                val item = threadsJson.optJSONObject(index) ?: continue
+                val tid = item.stringOrNull("tid") ?: continue
+                add(
+                    AutoThread(
+                        tid = tid,
+                        title = item.stringOrNull("title").orEmpty(),
+                        username = item.stringOrNull("username").orEmpty(),
+                        replies = item.optInt("replies"),
+                        recommends = item.optInt("recommendNum"),
+                        time = item.stringOrNull("time").orEmpty(),
+                        isVideo = item.optBoolean("isVideo"),
+                    ),
+                )
+            }
+        }
+        val cursor = data.stringOrNull("nextCursor")
+            ?.takeUnless { it.isBlank() }
+            ?: data.stringOrNull("cursor").orEmpty()
+        return AutoThreadPage(
+            threads = threads,
+            cursor = cursor,
+            hasMore = threads.size >= AUTO_THREAD_PAGE_SIZE,
+        )
+    }
+
+    private const val AUTO_THREAD_PAGE_SIZE = 20
+
     fun ratingDetail(json: String): RatingDetail {
         val data = JSONObject(json).requiredObject("data")
         val self = data.optJSONObject("self")

@@ -32,6 +32,9 @@ internal sealed interface AppScreen : NavKey {
     data class Comments(val target: RatingTargetRoute) : AppScreen
 
     @Serializable
+    data object AutoSection : AppScreen
+
+    @Serializable
     data class Web(
         val title: String,
         val url: String,
