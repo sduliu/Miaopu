@@ -71,6 +71,7 @@ fun MiaopuApp(viewModel: MiaopuViewModel) {
                 entry<AppScreen.Comments>(contentKey = { it.navigationContentKey }) { screen ->
                     CommentsScreen(viewModel, screen.target.toModel())
                 }
+                entry<AppScreen.AutoSection>(contentKey = { it.navigationContentKey }) { AutoSectionScreen(viewModel) }
                 entry<AppScreen.Web>(contentKey = { it.navigationContentKey }) { screen ->
                     HupuWebScreen(
                         title = screen.title,

@@ -677,6 +677,42 @@ private fun ProfileContent(viewModel: MiaopuViewModel, innerPadding: PaddingValu
                 }
             }
         }
+        item { SectionHeading("社区板块") }
+        item {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .semantics {
+                        role = Role.Button
+                        contentDescription = "浏览虎扑汽车区帖子"
+                    },
+                insideMargin = PaddingValues(18.dp),
+                cornerRadius = 20.dp,
+                onClick = viewModel::openAutoSection,
+                pressFeedbackType = PressFeedbackType.Sink,
+                showIndication = true,
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text("汽车区", fontWeight = FontWeight.Bold)
+                        Spacer(Modifier.height(3.dp))
+                        Text(
+                            "浏览虎扑汽车区帖子",
+                            style = MiuixTheme.textStyles.footnote1,
+                            color = MiuixTheme.colorScheme.onSurfaceVariantSummary,
+                        )
+                    }
+                    Text(
+                        "进入",
+                        style = MiuixTheme.textStyles.footnote1,
+                        color = MiuixTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Icon(LucideIcons.ChevronRight, null, Modifier.size(16.dp), tint = MiuixTheme.colorScheme.primary)
+                }
+            }
+        }
         item { SectionHeading("应用") }
         item {
             val updateState = viewModel.updateCheckState

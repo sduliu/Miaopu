@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets
 object HupuUrls {
     const val SCHEDULE_BASE = "https://match-api.hupu.com"
     const val SCORE_BASE = "https://games.mobileapi.hupu.com/1/8.2.99"
+    const val MOBILE_BBS_BASE = "https://m.hupu.com"
     const val DETAIL_BASE = "https://offline-download.hupu.com/online/prod/310016/detail.html"
     private const val PASSPORT_BASE = "https://passport.hupu.com/v2/login"
 
@@ -17,6 +18,7 @@ object HupuUrls {
         "https://games.mobileapi.hupu.com",
         "https://match-api.hupu.com",
         "https://bbs.mobileapi.hupu.com",
+        "https://m.hupu.com",
     )
 
     fun detailUrl(outBizType: String, outBizNo: String): String =
