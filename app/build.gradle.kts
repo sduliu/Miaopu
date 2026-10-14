@@ -23,7 +23,7 @@ android {
     namespace = "dev.kiritoxd.miaopu"
     buildToolsVersion = "37.0.0"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 0
         }
     }
@@ -31,7 +31,7 @@ android {
     defaultConfig {
         applicationId = "dev.kiritoxd.miaopu"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 38
         versionName = "2.3.1"
         manifestPlaceholders["appLabel"] = "喵扑"
